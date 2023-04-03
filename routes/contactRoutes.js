@@ -1,8 +1,7 @@
 const { Router } = require("express");
+const { getAllContacts } = require("../controllers/contactCntr");
 const contactRouter = Router();
 
-contactRouter.get("/", (req, res) => {
-  res.json({ message: "this is contact router" });
-});
+contactRouter.get("/", getAllContacts);
 
 module.exports = contactRouter;
