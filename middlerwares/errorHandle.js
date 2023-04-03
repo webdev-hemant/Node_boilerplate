@@ -1,47 +1,40 @@
+require("dotenv").config();
+
 const { errorCodeConstants } = require("../constants/errorCode");
+
+const environment = process.env.ENVIRONMENT;
 
 const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
-
+  const errObject = {
+    title: "",
+    message: err.message,
+    ...(environment === "dev" && { stackTrace: err.stack }),
+  };
   switch (statusCode) {
     case errorCodeConstants.VALIDATION_ERROR:
-      res.json({
-        title: "Validation Failed",
-        message: err.message,
-        stackTrace: err.stack,
-      });
+      errObject.title = "Validation Failed";
+      res.json(errObject);
       break;
 
     case errorCodeConstants.NOT_FOUND:
-      res.json({
-        title: "Not Found",
-        message: err.message,
-        stackTrace: err.stack,
-      });
+      errObject.title = "Not Found";
+      res.json(errObject);
       break;
 
     case errorCodeConstants.UNAUTHORIZED:
-      res.json({
-        title: "Unauthorized",
-        message: err.message,
-        stackTrace: err.stack,
-      });
+      errObject.title = "Unauthorized";
+      res.json(errObject);
       break;
 
     case errorCodeConstants.FORBIDDEN:
-      res.json({
-        title: "Forbidden",
-        message: err.message,
-        stackTrace: err.stack,
-      });
+      errObject.title = "Forbidden";
+      res.json(errObject);
       break;
 
     case errorCodeConstants.SERVER_ERROR:
-      res.json({
-        title: "Server Error",
-        message: err.message,
-        stackTrace: err.stack,
-      });
+      errObject.title = "Server Error";
+      res.json(errObject);
       break;
 
     default:

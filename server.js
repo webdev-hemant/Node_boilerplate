@@ -11,7 +11,6 @@ const port = process.env.PORT;
 
 // middlewares
 app.use(express.json());
-app.use(errorHandler);
 
 // routes middlewares
 app.use("/api/contact", contactRouter);
@@ -19,5 +18,7 @@ app.use("/api/contact", contactRouter);
 app.get("/", (req, res) => {
   res.json({ message: "hellow world" });
 });
+
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`server started on port ${port}`));
