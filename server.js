@@ -1,5 +1,6 @@
 const express = require("express");
 const contactRouter = require("./routes/contactRoutes");
+const practiceRouter = require("./routes/practiceRoutes");
 const connectDb = require("./config/dbConnection");
 const errorHandler = require("./middlerwares/errorHandle");
 require("dotenv").config({});
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // routes middlewares
 app.use("/api/contact", contactRouter);
+app.use("/api/practice", practiceRouter);
 
 app.get("/", (req, res) => {
   res.json({ message: "hellow world" });
